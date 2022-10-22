@@ -59,7 +59,6 @@ const HomeScreen = ({ match }) => {
 			{/* When loading, display Loading...
             On error, display error
             Else display the products */}
-           
 			{loading ? (
 				<Loader />
 			) : error ? (

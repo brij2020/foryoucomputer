@@ -6,8 +6,21 @@
 }
 ._loading_overlay_content > span {
   bottom: 18px;
+  left: 50%;
   
 }
 ._loading_overlay_overlay {
   height: 0!important;
 }
+
+@media only screen and (max-width: 600px) {
+  ._loading_overlay_content {
+    top: 52%;
+    left: 36%;
+  }
+  ._loading_overlay_content > span {
+    bottom: 18px;
+    left: 0%;
+  }
+}
+

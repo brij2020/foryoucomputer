@@ -51,6 +51,7 @@ const UserScreen = ({ match, history }) => {
 
 	return (
 		<>
+		
 			<Link to='/admin/userlist' className='btn btn-light my-3'>
 				Go Back
 			</Link>
