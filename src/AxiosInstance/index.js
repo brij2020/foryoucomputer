@@ -1,7 +1,7 @@
 import axios from 'axios'
-console.log(process.env.REACT_APP_KEY,'env')
+
 const Axios =  axios.create({
-	   baseURL: 'http://localhost:8080',
+	   baseURL: 'https://foryoucomputer-backendv2.onrender.com',
       timeout: 1000,
       headers: {
       	'Content-Type': 'application/json',
