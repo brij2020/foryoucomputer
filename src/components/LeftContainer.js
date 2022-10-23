@@ -59,6 +59,14 @@ const LeftContainer = () => {
   
   return (<>
     <div id="sidebar" style={{padding: "5px"}}  style={{display: isLeft ? '': 'none'}}>
+    <i class="fa fa-times" aria-hidden="true" style={{
+    "position": "absolute",
+    "left": "90%",
+    "top": "95%",
+    "font-size": "25px",
+    "color": "red"
+  }}
+></i>
       <div id="accordion" class="myaccordion">
        {
         card && card.map(c => (

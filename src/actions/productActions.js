@@ -32,6 +32,24 @@ export const listProducts = (keyword = '', pageNumber = '',productsByCat='') => 
 	dispatch
 ) => {
 	try {
+		if(typeof window !== 'undefined' && typeof window.localStorage !== 'undefined') {
+			if(localStorage.getItem('userInfo')) {
+				let userWishList = {}
+				// "{"user_token":{"user_id":"6289e435e6e6ac31887a3c5d","user_name":"test@mail.com","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQG1haWwuY29tIiwiX2lkIjoiNjI4OWU0MzVlNmU2YWMzMTg4N2EzYzVkIiwiaWF0IjoxNjY2NDI2NzEwLCJleHAiOjE2NjcwMzE1MTB9.DIhwDsZ7Z7vu0D5UzhIhNJAj1s6KQs7__YS3N0e-j2g","expire_in":"7d"}}"
+				try {
+				
+					let { user_token:{ user_id } = {user_id: ''}} = JSON.parse(localStorage.getItem('userInfo'));
+					if(typeof user_id !== 'undefined' && user_id !== '') {
+						userWishList = await Axios.post(`wishes/list`,{ "user": user_id });
+						console.log('userWishList', userWishList)
+					}
+
+				} catch(e) {
+					console.log(`Failed in getting `)
+				}
+			}
+		}
+		console.log('local storage', localStorage)
 		dispatch({ type: PRODUCT_LIST_REQUEST })
 		// Make request to get all products
 		let response = ''
