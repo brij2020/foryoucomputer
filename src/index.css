@@ -388,6 +388,9 @@ a {
   }
 }
 
-
+.make-wish-listed {
+    color: red;
+    cursor: pointer
+}
     
 

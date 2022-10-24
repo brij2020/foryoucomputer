@@ -7,6 +7,7 @@ import {
 } from '../constants/cartConstants'
 import Axios from "../AxiosInstance"
 
+
 // Actions to add a single product to the cart
 export const addToCart = (id, qty) => async (dispatch, getState) => {
 	// Make request to get a single product
