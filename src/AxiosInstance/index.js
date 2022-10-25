@@ -1,6 +1,6 @@
 import axios from 'axios'
 let baseURL = '';
-baseURL = 'https://foryoucomputer-backendv2.onrender.com'
+baseURL = 'https://ecom-electronic.onrender.com'
 // baseURL = 'http://localhost:8080'
 console.log('base url', baseURL)
 const Axios =  axios.create({
