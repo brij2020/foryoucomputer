@@ -10,6 +10,8 @@ import CartScreen from './screens/CartScreen'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import ProfileScreen from './screens/ProfileScreen'
+import HistoryScreen from './screens/OrderHistoryScreen'
+// History
 import ShippingScreen from './screens/ShippingScreen'
 import PaymentScreen from './screens/PaymentScreen'
 import PlaceOrderScreen from './screens/PlaceOrderScreen'
@@ -49,6 +51,8 @@ const App = () => {
 					<Route path='/shipping' component={ShippingScreen} />
 					{/* PaymentScreen */}
 					<Route path='/payment' component={PaymentScreen} />
+					{/* user order history*/}
+					<Route path='/history' component={ HistoryScreen } />
 					{/* PlaceOrderScreen */}
 					<Route path='/placeorder' component={PlaceOrderScreen} />
 					{/* OrderScreen */}
