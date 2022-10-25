@@ -1,7 +1,7 @@
 import axios from 'axios'
 let baseURL = '';
 baseURL = 'https://foryoucomputer-backendv2.onrender.com'
-baseURL = 'http://localhost:8080'
+// baseURL = 'http://localhost:8080'
 console.log('base url', baseURL)
 const Axios =  axios.create({
 	   baseURL: baseURL,
