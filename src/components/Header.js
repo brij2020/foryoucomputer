@@ -5,7 +5,8 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
 import SearchBox from './SearchBox'
 import { logout } from '../actions/userActions'
-
+import { FaUserCircle } from "react-icons/fa";
+// FaUserCircle
 const Header = () => {
 	const dispatch = useDispatch()
 
@@ -51,15 +52,25 @@ const Header = () => {
 								</Nav.Link>
 							</LinkContainer>
 							{userInfo ? (
+								<>
+								<div className="user"><FaUserCircle /> </div>
 								<NavDropdown title={userInfo.name} id='username'>
 									<LinkContainer to='/profile'>
 										<NavDropdown.Item>Profile</NavDropdown.Item>
+
+									</LinkContainer>
+									
+									<LinkContainer to='/history'>
+										<NavDropdown.Item>
+											Order History
+										</NavDropdown.Item>
 									</LinkContainer>
 									{/* Logout */}
 									<NavDropdown.Item onClick={logoutHandler}>
 										Logout
 									</NavDropdown.Item>
 								</NavDropdown>
+								</>
 							) : (
 								// Login
 								<LinkContainer to='/login'>

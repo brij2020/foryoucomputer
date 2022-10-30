@@ -27,29 +27,66 @@ import {
 } from '../constants/productConstants'
 import Axios from "../AxiosInstance"
 
+//add and remove wish list
+export const addToWishList = ({ productId, userId, isWishMade}) => async (dispatch, getState) => {
+	try {
+		let data = getState()['productList']['products'];
+		let productsResponse =  {
+			message: "products listed ",
+			status: true,
+			products:[]
+		}
+		const makeWishResposnse = await Axios.post('/wishes/make', {
+			product:`${productId}`,
+			user:`${userId}`
+		});
+		const _d_products = data.map(pro =>  { 
+			return pro._id === productId ? Object.assign({},pro,{isWishListed: !isWishMade}):pro
+		})
+		productsResponse['products'] = _d_products
+		dispatch({
+			type: PRODUCT_LIST_SUCCESS,
+			payload: productsResponse,
+		})
+	} catch(e) {
+		console.log(`Error happened`)
+	}
+	
+	
+
+	
+	// console.log('api response', dataResposnse);
+
+}
+
 // Actions to get all products
 export const listProducts = (keyword = '', pageNumber = '',productsByCat='') => async (
 	dispatch
 ) => {
+	let myWishListMap = new Map();
 	try {
+
 		if(typeof window !== 'undefined' && typeof window.localStorage !== 'undefined') {
 			if(localStorage.getItem('userInfo')) {
 				let userWishList = {}
-				// "{"user_token":{"user_id":"6289e435e6e6ac31887a3c5d","user_name":"test@mail.com","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQG1haWwuY29tIiwiX2lkIjoiNjI4OWU0MzVlNmU2YWMzMTg4N2EzYzVkIiwiaWF0IjoxNjY2NDI2NzEwLCJleHAiOjE2NjcwMzE1MTB9.DIhwDsZ7Z7vu0D5UzhIhNJAj1s6KQs7__YS3N0e-j2g","expire_in":"7d"}}"
-				try {
 				
+				try {
 					let { user_token:{ user_id } = {user_id: ''}} = JSON.parse(localStorage.getItem('userInfo'));
 					if(typeof user_id !== 'undefined' && user_id !== '') {
 						userWishList = await Axios.post(`wishes/list`,{ "user": user_id });
-						console.log('userWishList', userWishList)
+						if( userWishList && typeof userWishList.data !== 'undefined' && userWishList.data.status) {
+							userWishList = userWishList.data.wishList;
+							userWishList.map( wish => { myWishListMap.set(`${wish.product}`, wish.product)})
+						} else {
+							console.error(`Error in fetching wish list`);
+						}
 					}
-
 				} catch(e) {
 					console.log(`Failed in getting `)
 				}
 			}
 		}
-		console.log('local storage', localStorage)
+	
 		dispatch({ type: PRODUCT_LIST_REQUEST })
 		// Make request to get all products
 		let response = ''
@@ -58,9 +95,19 @@ export const listProducts = (keyword = '', pageNumber = '',productsByCat='') => 
 		} else {
 			response = await Axios.get(`/products?keyword=${keyword}`)
 		}
-		console.log('response', response)
-		const { data } = response
+		const { data } = response;
 		if(data.status) {
+			let products = data.products.map( product => {
+				if(myWishListMap.has(product?._id)) {
+					product = Object.assign({}, product, {isWishListed: true })
+				} else {
+					product = Object.assign({}, product, {isWishListed: false })
+
+				}
+				return product
+			})
+		
+			data['products'] = products
 			dispatch({
 				type: PRODUCT_LIST_SUCCESS,
 				payload: data,

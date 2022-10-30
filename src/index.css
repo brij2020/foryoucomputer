@@ -388,6 +388,11 @@ a {
   }
 }
 
-
-    
-
+.make-wish-listed {
+    color: red;
+    cursor: pointer
+}
+.user {
+  font-size: 27px;
+  margin-left: 15px;
+}

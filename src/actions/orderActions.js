@@ -138,29 +138,30 @@ export const payOrder = (orderId, paymentResult) => async (
 	}
 }
 // Actions to list my orders
-export const listMyOrders = () => async (dispatch, getState) => {
+export const listMyOrders = ({ perpage = 10, pageno = 1}={perpage:10,pageno:1}) => async (dispatch, getState) => {
 	try {
 		dispatch({ type: ORDER_LIST_MY_REQUEST })
 
 		// Get userInfo from userLogin by destructuring
+		// Make get request to get my orders
+		let user = JSON.parse(localStorage.getItem('userInfo'))['user_token'] ?? ''
+		
 		const {
 			userLogin: { userInfo },
 		} = getState()
 
 		const config = {
 			headers: {
-				Authorization: `Bearer ${userInfo.token}`,
+				Authorization: `Bearer ${user.token}`,
 			},
 		}
+	
+		const { data } = await Axios.post(`/orders/myorders?perpage=${perpage}&pageno=${pageno}`,{user:user}, config);
 
-		// Make get request to get my orders
-		let user = JSON.parse(localStorage.getItem('userInfo'))['user_token'] ?? ''
-		
-		const { data } = await Axios.post('/orders/myorders',{user:user}, config)
-
+		console.log('data', data)
 		dispatch({
 			type: ORDER_LIST_MY_SUCCESS,
-			payload: data,
+			payload: { orders: data.list, page: data.page }
 		})
 	} catch (error) {
 		dispatch({

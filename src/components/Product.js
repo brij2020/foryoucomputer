@@ -3,11 +3,28 @@ import { Link } from 'react-router-dom'
 import { Card } from 'react-bootstrap'
 import { FaRupeeSign } from "react-icons/fa";
 import Rating from './Rating'
+import { addToWishList } from '../actions/productActions';
+import { useDispatch } from 'react-redux'
 
 const Product = ({ product }) => {
+	const dispatch = useDispatch();
+
+	const makeWishHandler = (id,isWishListed) => {
+		try {
+			if(window && typeof window.localStorage !== 'undefined' && window.localStorage.getItem('userInfo')) {
+			let user = JSON.parse(localStorage.getItem(`userInfo`))
+			dispatch(addToWishList({ productId: id, userId: user.user_token.user_id, isWishMade: isWishListed }))
+		}
+		} catch(e) {
+			console.log('Some error is happned !');
+		}
+		
+		
+	}
+	
 	return (
 		<Card className='my-3 p-3 rounded'>
-		<i className={`fa fa-heart make-wish-list`} aria-hidden="true" ></i>
+		<i className={`fa fa-heart  ${product.isWishListed ? "make-wish-listed": 'make-wish-list' }`} aria-hidden="true" onClick = {  () => makeWishHandler(product._id, product.isWishListed) }  ></i>
 			<Link to={`/product/${product._id}`}>
 				{/* Product image */}
 
