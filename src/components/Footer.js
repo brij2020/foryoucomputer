@@ -14,9 +14,9 @@ const Footer = () => {
 							target='_blank'
 							className='melvin-kisten'
 						>
-							<i className='fas fa-user-circle'></i>My Ecom
+							<i className='fas fa-user-circle'></i>
 						</a>
-						Copyright &copy; My Ecom
+						Copyright &copy; ForYouComputer
 					</Col>
 				</Row>
 			</Container>

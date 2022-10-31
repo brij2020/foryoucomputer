@@ -35,11 +35,11 @@ const Header = () => {
 						target='_blank'
 						className='melvin-kisten'
 					>
-						<i className='fas fa-user-circle'></i> MY E-Com
+						
 					</a>
 					{/* Home */}
 					<LinkContainer to='/'>
-						<Navbar.Brand>React E-Commerce</Navbar.Brand>
+						<Navbar.Brand>ForYou-Computer</Navbar.Brand>
 					</LinkContainer>
 					<Navbar.Toggle aria-controls='basic-navbar-nav' />
 					<Navbar.Collapse id='basic-navbar-nav'>
