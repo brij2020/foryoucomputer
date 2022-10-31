@@ -229,9 +229,9 @@ const OrderScreen = ({ match }) => {
 							</ListGroup.Item>
 							{!order.isPaid && (
 								<ListGroup.Item>
-									{loadingPay && <Loader />}
+									{/*loadingPay && <Loader />*/}
 									{!sdkReady ? (
-										<Loader />
+										<h1 />
 									) : (
 										<PayPalButton
 											amount={order.totalPrice}
